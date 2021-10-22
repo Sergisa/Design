@@ -1,36 +1,30 @@
 package com.company;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.geom.Ellipse2D;
 
 public class Form extends JFrame {
     private JPanel root;
-    private JButton button1;
     private JPanel drawingPanel;
 
     public Form(String title) {
         super(title);
-        button1.setFocusable(false);
-        setContentPane(root);
-        setSize(500, 500);
+        setSize(550, 550);
         setVisible(true);
+        setContentPane(root);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        drawingPanel.setBorder(BorderFactory.createLineBorder(Color.CYAN));
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                if (e.getKeyCode() == KeyEvent.VK_Z && e.isControlDown()) {
-                    ((DrawingPanel)drawingPanel).removeLast();
-                }
-            }
+        drawingPanel.setBorder(BorderFactory.createLineBorder(MaterialColors.PURPLE_700, 2, true));
 
-        });
     }
 
     private void createUIComponents() {
-        drawingPanel = new DrawingPanel();// TODO: place custom component creation code here
+        drawingPanel = new DrawingPanel();
+    }
+
+    public void addFigure(Circle c) {
+        ((DrawingPanel) drawingPanel).draw(new Ellipse2D.Double(c.x, c.y, c.r * 2, c.r * 2));
+        c.rotate(30);
+        ((DrawingPanel) drawingPanel).draw(new Ellipse2D.Double(c.x, c.y, c.r * 2, c.r * 2));
+
     }
 }
